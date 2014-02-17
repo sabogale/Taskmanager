@@ -27,7 +27,7 @@ class TasksController < ApplicationController
     @task = Task.new
     @users = User.all.map { |user|  [ user.first_name ] }
 
-    repost-installspond_to do |format|
+respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @task }
     end
