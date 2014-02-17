@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.all(:order => 'created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,8 +25,9 @@ class TasksController < ApplicationController
   # GET /tasks/new.json
   def new
     @task = Task.new
+    @users = User.all.map { |user|  [ user.first_name ] }
 
-    respond_to do |format|
+    repost-installspond_to do |format|
       format.html # new.html.erb
       format.json { render json: @task }
     end
@@ -35,12 +36,14 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
+    @users = User.all.map { |user|  [ user.first_name ] }
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
     @task = Task.new(params[:task])
+    @users = User.all.map { |user|  [ user.first_name ] }
 
     respond_to do |format|
       if @task.save
@@ -57,6 +60,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1.json
   def update
     @task = Task.find(params[:id])
+    @users = User.all.map { |user|  [ user.first_name ] }
 
     respond_to do |format|
       if @task.update_attributes(params[:task])
